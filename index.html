@@ -3,94 +3,203 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>iD01t Store</title>
-  <meta name="description" content="Official iD01t Productions store — ebooks, software, music, and creator tools." />
+  <title>iD01t Store, Official</title>
+  <meta name="description" content="Official iD01t Productions store, ebooks, software, music, audiobooks, creator tools, secure checkout, instant delivery." />
+  <meta name="theme-color" content="#0a0a0a" />
+  <meta name="color-scheme" content="dark light" />
+  <link rel="canonical" href="https://id01t.store/" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { 'sans': ['Inter','ui-sans-serif','system-ui','Segoe UI','Roboto','Helvetica','Arial','sans-serif'] },
+          colors: {
+            base: { 900: '#0b0b0f', 800: '#11121a', 700: '#161827' }
+          },
+          boxShadow: {
+            glow: '0 0 0 1px rgba(255,255,255,0.06), 0 10px 40px rgba(79,70,229,0.25)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <meta property="og:title" content="iD01t Store, Official" />
+  <meta property="og:description" content="Ebooks, apps, music, audiobooks, creator tools." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://id01t.store/" />
+  <meta property="og:image" content="https://id01t.store/og-cover.jpg" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="iD01t Store, Official" />
+  <meta name="twitter:description" content="Ebooks, apps, music, audiobooks, creator tools." />
+  <meta name="twitter:image" content="https://id01t.store/og-cover.jpg" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Store",
+    "name": "iD01t Store",
+    "url": "https://id01t.store/",
+    "logo": "https://id01t.store/logo.svg",
+    "sameAs": ["https://ko-fi.com/id01t"],
+    "brand": { "@type": "Brand", "name": "iD01t Productions" }
+  }
+  </script>
+
   <style>
-    *{font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
-    .glass{backdrop-filter:saturate(1.8) blur(10px)}
+    * { font-family: Inter, system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif }
+    .glass { backdrop-filter: saturate(1.8) blur(10px) }
+    .hero-gradient { background:
+      radial-gradient(70% 60% at 10% 0%, rgba(79,70,229,.22), transparent 60%),
+      radial-gradient(70% 60% at 90% 10%, rgba(236,72,153,.18), transparent 60%),
+      linear-gradient(180deg, #0b0b0f, #11121a 35%, #0b0b0f);
+    }
+    .ring-focus:focus-visible { outline: none; box-shadow: 0 0 0 4px rgba(99,102,241,.4) }
+    @media (prefers-reduced-motion: reduce) { .animate { transition: none !important } }
   </style>
 </head>
-<body class="bg-neutral-950 text-neutral-100">
-  <!-- Header -->
-  <header class="sticky top-0 z-50 bg-neutral-950/75 glass border-b border-white/10">
+<body id="top" class="bg-base-900 text-neutral-100 selection:bg-fuchsia-500/30 selection:text-white">
+  <header class="sticky top-0 z-50 bg-base-900/80 glass border-b border-white/10">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="flex h-16 items-center justify-between">
-        <a href="#top" class="flex items-center gap-3">
-          <div class="size-9 rounded-xl bg-gradient-to-tr from-indigo-500 via-fuchsia-500 to-rose-500 shadow-lg"></div>
+        <a href="#top" class="flex items-center gap-3 ring-focus">
+          <div class="size-9 rounded-xl bg-gradient-to-tr from-indigo-500 via-fuchsia-500 to-rose-500 shadow-glow"></div>
           <span class="text-lg font-extrabold tracking-tight">iD01t Store</span>
         </a>
         <nav class="hidden md:flex items-center gap-6 text-sm">
-          <a href="#store" class="hover:text-indigo-300">Shop</a>
-          <a href="#about" class="hover:text-indigo-300">About</a>
-          <a href="#contact" class="hover:text-indigo-300">Contact</a>
+          <a href="#store" class="hover:text-indigo-300 ring-focus">Shop</a>
+          <a href="#apps" class="hover:text-indigo-300 ring-focus">Apps</a>
+          <a href="#about" class="hover:text-indigo-300 ring-focus">About</a>
+          <a href="#contact" class="hover:text-indigo-300 ring-focus">Contact</a>
         </nav>
+        <div class="md:hidden">
+          <details class="cursor-pointer">
+            <summary class="text-sm">Menu</summary>
+            <nav class="mt-2 flex flex-col gap-2 text-sm">
+              <a href="#store" class="hover:text-indigo-300">Shop</a>
+              <a href="#apps" class="hover:text-indigo-300">Apps</a>
+              <a href="#about" class="hover:text-indigo-300">About</a>
+              <a href="#contact" class="hover:text-indigo-300">Contact</a>
+            </nav>
+          </details>
+        </div>
       </div>
     </div>
   </header>
 
-  <!-- Hero -->
-  <section class="relative overflow-hidden">
-    <div class="absolute inset-0 bg-[radial-gradient(70%_60%_at_50%_0%,rgba(79,70,229,.35),transparent_60%)]"></div>
+  <section class="relative overflow-hidden hero-gradient">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 pb-20">
-      <div class="grid md:grid-cols-2 gap-10 items-center">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
         <div>
-          <h1 class="text-4xl sm:text-5xl font-black leading-tight">
-            The Official iD01t Store
-          </h1>
+          <h1 class="text-4xl sm:text-6xl font-black leading-tight">The official iD01t Store</h1>
           <p class="mt-5 text-neutral-300 text-lg">
-            Browse ebooks, software, music, and creator tools directly from our Ko‑fi shop. Instant delivery, secure checkout, and free updates on select products.
+            Browse ebooks, software, music, audiobooks, and creator tools on one fast store. Instant delivery, secure checkout, free updates on select products.
           </p>
           <div class="mt-8 flex flex-wrap gap-3">
-            <a href="#store" class="inline-flex items-center rounded-xl bg-indigo-600 px-5 py-3 font-semibold shadow-lg shadow-indigo-600/30 hover:bg-indigo-500 focus:outline-none focus:ring-4">Visit Store</a>
+            <a href="#store" class="inline-flex items-center rounded-xl bg-indigo-600 px-5 py-3 font-semibold shadow-lg shadow-indigo-600/30 hover:bg-indigo-500 ring-focus animate">Visit Store</a>
+            <a href="#apps" class="inline-flex items-center rounded-xl bg-white/5 px-5 py-3 font-semibold hover:bg-white/10 ring-focus animate">Explore Apps</a>
           </div>
+          <dl class="mt-10 grid grid-cols-3 gap-6 max-w-md text-center text-sm">
+            <div class="rounded-2xl border border-white/10 p-4">
+              <dt class="text-neutral-400">Products</dt>
+              <dd class="text-xl font-extrabold">100+</dd>
+            </div>
+            <div class="rounded-2xl border border-white/10 p-4">
+              <dt class="text-neutral-400">Instant</dt>
+              <dd class="text-xl font-extrabold">Delivery</dd>
+            </div>
+            <div class="rounded-2xl border border-white/10 p-4">
+              <dt class="text-neutral-400">Support</dt>
+              <dd class="text-xl font-extrabold">Direct</dd>
+            </div>
+          </dl>
         </div>
         <div class="relative">
-          <div class="aspect-[4/3] w-full rounded-3xl bg-gradient-to-tr from-neutral-800 to-neutral-900 border border-white/10 p-1">
-            <div class="h-full w-full rounded-2xl bg-[url('/img/hero-mosaic.jpg')] bg-cover bg-center"></div>
-          </div>
+          <figure class="aspect-[4/3] w-full rounded-3xl bg-gradient-to-tr from-neutral-800 to-neutral-900 border border-white/10 p-1">
+            <img src="https://picsum.photos/960/720?blur=1" width="960" height="720" loading="lazy" alt="Store preview mosaic" class="h-full w-full rounded-2xl object-cover" />
+          </figure>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Ko-fi Store Embed -->
-  <section id="store" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 pb-24">
-    <h2 class="text-2xl sm:text-3xl font-extrabold mb-6">Shop</h2>
-    <div class="rounded-2xl border border-white/10 bg-neutral-900 p-6">
-      <iframe src="https://ko-fi.com/id01t/shop" style="width:100%; min-height:800px; border:0;" title="Ko-fi Store"></iframe>
+  <section id="apps" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-14 pb-6">
+    <div class="flex items-end justify-between gap-6 flex-wrap">
+      <h2 class="text-2xl sm:text-3xl font-extrabold">Apps</h2>
+      <a href="#store" class="text-sm text-indigo-300 hover:text-indigo-200">See all in Shop</a>
+    </div>
+    <div class="mt-6 grid md:grid-cols-3 gap-6">
+      <article class="rounded-2xl border border-white/10 bg-base-800 p-6 hover:border-indigo-500/60 transition animate">
+        <div class="text-xl font-bold">Py2Win</div>
+        <p class="mt-2 text-sm text-neutral-300">Package Python projects for Windows, ship .exe, update channels, versioning, revenue fast.</p>
+        <div class="mt-4">
+          <a href="/apps/py2win.html" class="inline-flex items-center rounded-xl bg-white/10 px-4 py-2 text-sm hover:bg-white/15 ring-focus">Open page</a>
+        </div>
+      </article>
+      <article class="rounded-2xl border border-white/10 bg-base-800 p-6 hover:border-indigo-500/60 transition animate">
+        <div class="text-xl font-bold">ForgeXPro</div>
+        <p class="mt-2 text-sm text-neutral-300">Studio for text, image, video, music, code, social, clean exports, team ready.</p>
+        <div class="mt-4">
+          <a href="/apps/forgexpro.html" class="inline-flex items-center rounded-xl bg-white/10 px-4 py-2 text-sm hover:bg-white/15 ring-focus">Open page</a>
+        </div>
+      </article>
+      <article class="rounded-2xl border border-white/10 bg-base-800 p-6 hover:border-indigo-500/60 transition animate">
+        <div class="text-xl font-bold">MusicForge</div>
+        <p class="mt-2 text-sm text-neutral-300">Produce music, manage stems, release packs, credits, distribution prep.</p>
+        <div class="mt-4">
+          <a href="/apps/musicforge.html" class="inline-flex items-center rounded-xl bg-white/10 px-4 py-2 text-sm hover:bg-white/15 ring-focus">Open page</a>
+        </div>
+      </article>
     </div>
   </section>
 
-  <!-- About -->
-  <section id="about" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16">
+  <section id="store" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-14 pb-24">
+    <h2 class="text-2xl sm:text-3xl font-extrabold mb-6">Shop</h2>
+    <div class="rounded-2xl border border-white/10 bg-base-800 p-6">
+      <iframe src="https://ko-fi.com/id01t/shop" style="width:100%; min-height:900px; border:0;" title="Ko-fi Store" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </section>
+
+  <section id="about" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-14">
     <div class="grid md:grid-cols-2 gap-10 items-center">
       <div>
         <h2 class="text-2xl sm:text-3xl font-extrabold">About iD01t Productions</h2>
-        <p class="mt-3 text-neutral-300">We create tools for independent creators and developers — ebooks, apps, and music designed to empower your journey.</p>
+        <p class="mt-3 text-neutral-300">We create tools for independent creators and developers, ebooks, apps, music, all designed to help you move fast. Everything ships with clean UX, clear documentation, and direct support.</p>
       </div>
-      <div class="rounded-3xl border border-white/10 bg-[url('/img/about.jpg')] bg-cover bg-center min-h-64"></div>
+      <figure class="rounded-3xl border border-white/10 min-h-64 overflow-hidden">
+        <img src="https://picsum.photos/960/640?grayscale" alt="Studio preview" width="960" height="640" loading="lazy" class="w-full h-full object-cover" />
+      </figure>
     </div>
   </section>
 
-  <!-- Contact -->
-  <section id="contact" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 pb-24">
-    <div class="rounded-3xl border border-white/10 p-8 bg-neutral-900">
-      <h3 class="text-xl font-extrabold mb-2">Stay Connected</h3>
+  <section id="contact" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-14 pb-24">
+    <div class="rounded-3xl border border-white/10 p-8 bg-base-800">
+      <h3 class="text-xl font-extrabold mb-2">Stay connected</h3>
       <p class="text-sm text-neutral-300">For updates, new releases, and direct support, follow us on Ko‑fi.</p>
-      <a href="https://ko-fi.com/id01t" class="mt-4 inline-block rounded-xl bg-indigo-600 px-5 py-3 font-semibold hover:bg-indigo-500">Follow on Ko‑fi</a>
+      <a href="https://ko-fi.com/id01t" class="mt-4 inline-block rounded-xl bg-indigo-600 px-5 py-3 font-semibold hover:bg-indigo-500 ring-focus">Follow on Ko‑fi</a>
     </div>
   </section>
 
   <footer class="border-t border-white/10 py-8 text-center text-xs text-neutral-400">
-    <p>© <span id="year"></span> iD01t Productions. All rights reserved.</p>
+    <p>© <span id="year"></span> iD01t Productions, all rights reserved</p>
   </footer>
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if (el) { e.preventDefault(); el.scrollIntoView({behavior: 'smooth', block: 'start'}); }
+      });
+    });
   </script>
 </body>
 </html>
