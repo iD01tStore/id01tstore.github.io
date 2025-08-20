@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Py2Win — Installer Return Codes & Troubleshooting</title>
+<style>
+  :root {
+    --bg: #0b0d10; --card:#12161b; --fg:#e8eef5; --muted:#aab4bf; --acc:#6ea8fe; --mono:#e5e7eb;
+    --code:#0f1720; --border:#1f2832;
+  }
+  html,body { background: var(--bg); color: var(--fg); font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji'; margin:0; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 32px 20px 80px; }
+  h1,h2,h3 { line-height:1.25; margin: 1.2em 0 .4em; }
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: .3rem; }
+  h3 { font-size: 1.2rem; color: var(--acc); }
+  p { margin: .6em 0; color: var(--fg); }
+  code { background: var(--code); color: var(--mono); padding: .15rem .35rem; border-radius: .35rem; }
+  pre { background: var(--code); color: var(--mono); padding: 14px 16px; border-radius: 12px; overflow:auto; }
+  pre code { background: transparent; padding: 0; }
+  ul { margin: .4em 0 .8em 1.4em; }
+  li { margin: .25em 0; }
+  table { width: 100%; border-collapse: collapse; margin: 1em 0; background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow:hidden; }
+  thead th { text-align: left; padding: .6em .8em; background: #0f1419; color: var(--fg); }
+  tbody td { padding: .6em .8em; border-top: 1px solid var(--border); color: var(--muted); }
+  .muted { color: var(--muted); }
+  .card { background: var(--card); border:1px solid var(--border); border-radius:16px; padding:18px 20px; margin: 12px 0 22px; }
+  a { color: var(--acc); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Py2Win — Installer Return Codes &amp; Troubleshooting</h1>
+
+<p>**Product:** Py2Win  </p>
+<p>**Version:** 1.5.1.0  </p>
+<p>**Publisher:** iD01t Productions  </p>
+<p>**Support:** admin@id01t.store</p>
+
+<p>This guide documents **what each installer return code means**, how to **diagnose**, and how to **fix** it. Use these commands in an elevated PowerShell terminal to capture logs and exit codes:</p>
+
+<pre><code>
+Start-Process -Wait .\Py2Win-1.5.1.0-Setup.exe '/L=$env:TEMP\py2win_install.log'
+$LASTEXITCODE
+Get-Content $env:TEMP\py2win_install.log -Tail 200
+</code></pre>
+
+<p>---</p>
+
+<h2>Quick reference (codes mapped for Microsoft Partner Center)</h2>
+
+<table class="table"><thead><tr><th>Scenario</th><th>Code</th></tr></thead><tbody>
+<tr><td>Installation successful</td><td>**0**</td></tr>
+<tr><td>Installation cancelled by user</td><td>**1223**</td></tr>
+<tr><td>Application already exists</td><td>**1638**</td></tr>
+<tr><td>Installation already in progress</td><td>**1618**</td></tr>
+<tr><td>Disk space is full</td><td>**112**</td></tr>
+<tr><td>Reboot required</td><td>**3010**</td></tr>
+<tr><td>Network failure *(mapped)*</td><td>**12007**</td></tr>
+<tr><td>Package rejected during installation *(mapped)*</td><td>**1625**</td></tr>
+<tr><td>Miscellaneous install failure</td><td>**1603**</td></tr>
+</tbody></table>
+
+<p>&gt; **Mapped** = code reserved for the Store’s scenario mapping. Your environment may surface the failure (e.g., policy/AV) before the installer runs.</p>
+
+<p>---</p>
+
+<h2>Supported installer switches</h2>
+
+<ul>
+<li>**Silent install:** &lt;code&gt;/S&lt;/code&gt;</li>
+<li>**Custom install dir:** &lt;code&gt;/D="C:\Program Files\Py2Win"&lt;/code&gt;  *(must be last)*</li>
+<li>**Per-user install:** &lt;code&gt;/ALLUSERS=0&lt;/code&gt;  *(installs to &lt;code&gt;%LOCALAPPDATA%\Py2Win&lt;/code&gt;)*</li>
+<li>**Desktop shortcut:** &lt;code&gt;/DESKTOPSHORTCUT=1&lt;/code&gt;</li>
+<li>**Allow overwrite:** &lt;code&gt;/ALLOWREINSTALL=1&lt;/code&gt;</li>
+</ul>
+
+<p>**Examples**</p>
+<pre><code>
+# Default (all users)
+.\Py2Win-1.5.1.0-Setup.exe
+
+# Per-user + desktop shortcut
+.\Py2Win-1.5.1.0-Setup.exe /ALLUSERS=0 /DESKTOPSHORTCUT=1
+
+# Silent + overwrite if already installed + custom dir (remember /D is last)
+.\Py2Win-1.5.1.0-Setup.exe /S /ALLOWREINSTALL=1 /ALLUSERS=0 /D="%LOCALAPPDATA%\Py2Win"
+</code></pre>
+
+<p>---</p>
+
+<h2>Scenario details</h2>
+
+<h3>1) Installation successful — **0**</h3>
+<p>**Meaning:** Install completed without errors.  </p>
+<p>**Verify:** &lt;code&gt;C:\Program Files\Py2Win\Py2Win.exe&lt;/code&gt; (all users) or &lt;code&gt;%LOCALAPPDATA%\Py2Win\Py2Win.exe&lt;/code&gt; (per-user).  </p>
+<p>**Uninstall (silent):**</p>
+<pre><code>
+"C:\Program Files\Py2Win\Uninstall.exe" /S
+</code></pre>
+
+<p>---</p>
+
+<h3>2) Installation cancelled by user — **1223**</h3>
+<p>**Meaning:** The user closed the wizard or clicked **Cancel**.  </p>
+<p>**Typical log lines:**</p>
+<ul>
+<li>&lt;code&gt;User aborted installation&lt;/code&gt;  </li>
+</ul>
+<p>**Fix:** Re-run the installer and complete all steps.  </p>
+<p>**Admin note:** If cancellation happens during a script or RMM push, remove &lt;code&gt;/S&lt;/code&gt; to show UI and capture screenshots, or re-run with &lt;code&gt;/S&lt;/code&gt; only after validating prerequisites.</p>
+
+<p>---</p>
+
+<h3>3) Application already exists — **1638**</h3>
+<p>**Meaning:** An existing installation was detected in the target scope.  </p>
+<p>**Typical log lines:**</p>
+<ul>
+<li>&lt;code&gt;Existing install detected at: &amp;lt;path&amp;gt;&lt;/code&gt;  </li>
+</ul>
+<p>**Fix options:**</p>
+<ul>
+<li>Interactive: confirm **reinstall/overwrite** when prompted.</li>
+<li>Silent: add &lt;code&gt;/ALLOWREINSTALL=1&lt;/code&gt; or uninstall first.</li>
+</ul>
+<pre><code>
+# All users (default scope)
+"C:\Program Files\Py2Win\Uninstall.exe" /S
+
+# Per-user (if installed with /ALLUSERS=0)
+"%LOCALAPPDATA%\Py2Win\Uninstall.exe" /S
+</code></pre>
+<p>**Admin note:** For scripted redeployments, use &lt;code&gt;/ALLOWREINSTALL=1&lt;/code&gt; to avoid 1638.</p>
+
+<p>---</p>
+
+<h3>4) Installation already in progress — **1618**</h3>
+<p>**Meaning:** Another installation process is running.  </p>
+<p>**Symptoms:** UI may show a message or the installer exits immediately with 1618.  </p>
+<p>**Fix:**</p>
+<ul>
+<li>Wait for the other installer to complete.</li>
+<li>Reboot and run again.</li>
+<li>Ensure RMM/installer scripts are not launching multiple instances.</li>
+</ul>
+<p>**Admin note:** Check &lt;code&gt;msiexec.exe&lt;/code&gt; and other setup processes in Task Manager. Avoid parallel installs in automation.</p>
+
+<p>---</p>
+
+<h3>5) Disk space is full — **112**</h3>
+<p>**Meaning:** The destination volume does not have enough free space.  </p>
+<p>**Typical log lines:**</p>
+<ul>
+<li>&lt;code&gt;File: "..\bin\Py2Win.exe"  -&amp;gt; ERROR&lt;/code&gt;  </li>
+</ul>
+<p>**Fix:**</p>
+<ul>
+<li>Free up space on the target drive.</li>
+<li>Choose a different **Install Location** or use &lt;code&gt;/D="D:\Apps\Py2Win"&lt;/code&gt;.</li>
+</ul>
+<p>**Admin note:** Ensure at least **200 MB** free for install + temp extraction.</p>
+
+<p>---</p>
+
+<h3>6) Reboot required — **3010**</h3>
+<p>**Meaning:** The installation completed but a restart is required to finalize all changes.  </p>
+<p>**Fix:** Reboot the device.  </p>
+<p>**Admin note:** In automation, treat **3010** as **success with reboot** (do not retry install).</p>
+
+<p>---</p>
+
+<h3>7) Network failure — **12007** *(mapped)*</h3>
+<p>**Meaning:** A network stack or name resolution failure was encountered during prerequisite checks or system policies.  </p>
+<p>**Fix:**</p>
+<ul>
+<li>Verify the device’s network is online and can resolve domain names.</li>
+<li>Retry after connectivity is restored.</li>
+</ul>
+<p>**Admin note:** If using remote shares or network-based prerequisites, map stable paths and ensure firewall/DNS allow access.</p>
+
+<p>---</p>
+
+<h3>8) Package rejected during installation — **1625** *(mapped)*</h3>
+<p>**Meaning:** Installation was blocked by device policy (e.g., AppLocker/SmartScreen/Group Policy).  </p>
+<p>**Fix:**</p>
+<ul>
+<li>Run as administrator.</li>
+<li>If blocked by policy, request an exception for this package from IT or temporarily allow the publisher.</li>
+<li>Right-click the file → **Properties → Unblock**, then re-run.</li>
+</ul>
+<p>**Admin note:** Review Windows Event Viewer → **AppLocker/MSI and Script** logs or **Windows Security → Protection history**. Allow the file hash or path as per policy.</p>
+
+<p>---</p>
+
+<h3>9) Miscellaneous install failure — **1603**</h3>
+<p>**Meaning:** Generic failure. Investigate the log for the precise cause.  </p>
+<p>**Checklist:**</p>
+<ul>
+<li>Run with logging and review:  </li>
+</ul>
+<pre><code>
+  Start-Process -Wait .\Py2Win-1.5.1.0-Setup.exe '/L=$env:TEMP\py2win_install.log'
+  Get-Content $env:TEMP\py2win_install.log -Tail 200
+</code></pre>
+<ul>
+<li>Confirm admin rights (right-click → **Run as administrator**).</li>
+<li>Temporarily disable antivirus or add an exclusion for the installer and &lt;code&gt;%TEMP%&lt;/code&gt;.</li>
+<li>Ensure the executable in &lt;code&gt;bin\Py2Win.exe&lt;/code&gt; is present and not quarantined by AV.</li>
+<li>Re-run with UI (without &lt;code&gt;/S&lt;/code&gt;) to surface any prompts.</li>
+</ul>
+<p>**Admin note:** If you see SmartScreen, click **More info → Run anyway** (for unsigned builds).</p>
+
+<p>---</p>
+
+<h2>Uninstall commands</h2>
+
+<p>**All users (default scope):**</p>
+<pre><code>
+"C:\Program Files\Py2Win\Uninstall.exe" /S
+</code></pre>
+
+<p>**Per-user install (installed with &lt;code&gt;/ALLUSERS=0&lt;/code&gt;):**</p>
+<pre><code>
+"%LOCALAPPDATA%\Py2Win\Uninstall.exe" /S
+</code></pre>
+
+<p>---</p>
+
+<h2>Contact</h2>
+
+<p>If you’re still blocked after following these steps, email **admin@id01t.store** with:</p>
+<ul>
+<li>The **return code**</li>
+<li>The last 200 lines of the log file (&lt;code&gt;%TEMP%\py2win_install.log&lt;/code&gt;)</li>
+<li>Windows version (e.g., Windows 11 23H2) and whether you’re installing **all users** or **per-user**</li>
+</ul>
+
+    <div class="card muted">© 2025 iD01t Productions • Py2Win 1.5.1.0</div>
+  </div>
+</body>
+</html>
