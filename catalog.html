@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalog - iD01t Store</title>
+    <meta name="description" content="Browse our full catalog of ebooks and audiobooks.">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <main>
+        <h2>Full Catalog</h2>
+        <div class="filters">
+            <!-- Filter controls will go here -->
+            <input type="search" id="search-box" placeholder="Search titles...">
+        </div>
+        <div id="catalog-grid" class="product-grid">
+            <!-- Product listings will be dynamically injected here by js/catalog.js -->
+            <p>Loading catalog...</p>
+        </div>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="js/templating.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/catalog.js"></script>
+</body>
+</html>

@@ -3,190 +3,367 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>iD01t Store, Official</title>
-  <meta name="description" content="Official page by iD01t Productions" />
-  <meta name="theme-color" content="#0a0a0a" />
-  <meta name="color-scheme" content="dark light" />
-  <link rel="canonical" href="https://id01t.store/" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { 'sans': ['Inter','ui-sans-serif','system-ui','Segoe UI','Roboto','Helvetica','Arial','sans-serif'] },
-          colors: { base: { 900: '#0b0b0f', 800: '#11121a', 700: '#161827' } },
-          boxShadow: { glow: '0 0 0 1px rgba(255,255,255,0.06), 0 10px 40px rgba(79,70,229,0.25)' }
-        }
-      }
-    }
-  </script>
-  <meta property="og:title" content="iD01t Store, Official" />
-  <meta property="og:description" content="Official page by iD01t Productions" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://id01t.store/" />
-  <meta property="og:image" content="/assets/img/og-cover.jpg" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="iD01t Store, Official" />
-  <meta name="twitter:description" content="Official page by iD01t Productions" />
-  <meta name="twitter:image" content="/assets/img/og-cover.jpg" />
+  <title>iD01t Store</title>
+  <meta name="description" content="Official hub for eBooks, music, and software by Guillaume Lessard and iD01t Productions.">
+  <link rel="icon" href="favicon.ico">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://id01tstore.github.io/">
+  <meta property="og:title" content="iD01t Store">
+  <meta property="og:description" content="Official hub for eBooks, music, and software by Guillaume Lessard and iD01t Productions.">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://id01tstore.github.io/">
+  <meta property="twitter:title" content="iD01t Store">
+  <meta property="twitter:description" content="Official hub for eBooks, music, and software by Guillaume Lessard and iD01t Productions.">
+
+  <link rel="stylesheet" href="css/style.css">
+
   <style>
-    * { font-family: Inter, system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif }
-    .glass { backdrop-filter: saturate(1.8) blur(10px) }
-    .hero-gradient { background:
-      radial-gradient(70% 60% at 10% 0%, rgba(79,70,229,.22), transparent 60%),
-      radial-gradient(70% 60% at 90% 10%, rgba(236,72,153,.18), transparent 60%),
-      linear-gradient(180deg, #0b0b0f, #11121a 35%, #0b0b0f);
+    :root{
+      --bg: #0b0e14;
+      --fg: #e6e9ef;
+      --muted: #9aa0a6;
+      --accent: #6ae3ff;
+      --card: #121722;
+      --border: #1d2433;
     }
-    .ring-focus:focus-visible { outline: none; box-shadow: 0 0 0 4px rgba(99,102,241,.4) }
-    @media (prefers-reduced-motion: reduce) { .animate { transition: none !important } }
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,Segoe UI,Roboto,Inter,Arial,sans-serif}
+    a{color:inherit}
+    /* Top Bar */
+    .topbar{position:sticky;top:0;z-index:50;background:rgba(11,14,20,.85);backdrop-filter:saturate(120%) blur(8px);border-bottom:1px solid var(--border)}
+    .topbar-inner{max-width:1200px;margin:0 auto;padding:.75rem 1rem;display:flex;align-items:center;gap:1rem}
+    .brand{display:flex;align-items:center;gap:.6rem;text-decoration:none}
+    .brand img{width:28px;height:28px;border-radius:6px;display:block}
+    .brand span{font-weight:700;letter-spacing:.3px}
+    .nav{margin-left:auto;display:flex;align-items:center;gap:.75rem}
+    .nav a, .nav button{padding:.5rem .8rem;border:1px solid var(--border);border-radius:.6rem;background:transparent;color:var(--fg);text-decoration:none;cursor:pointer}
+    .nav a:hover, .nav button:hover{border-color:var(--accent)}
+    /* Dropdown */
+    .dropdown{position:relative}
+    .dropdown-menu{position:absolute;right:0;top:calc(100% + .5rem);min-width:320px;max-height:60vh;overflow:auto;background:var(--card);border:1px solid var(--border);border-radius:.8rem;box-shadow:0 10px 30px rgba(0,0,0,.5);display:none;padding:.5rem}
+    .dropdown.open .dropdown-menu{display:block}
+    .dropdown h4{margin:.25rem .5rem .5rem;font-size:.9rem;color:var(--muted);font-weight:600}
+    .file-list{list-style:none;margin:0;padding:0}
+    .file-list a{display:block;padding:.55rem .6rem;border-radius:.5rem;color:var(--fg);text-decoration:none}
+    .file-list a:hover{background:#0f1421;color:var(--accent)}
+    .empty{padding:.75rem .6rem;color:var(--muted)}
+    /* Main layout */
+    main{max-width:1200px;margin:2rem auto;padding:0 1rem}
+    .pill{font-size:.85rem;border:1px solid var(--border);padding:.25rem .5rem;border-radius:999px;color:var(--muted)}
+    hr{margin:20px 0;border:0;border-top:1px solid var(--border)}
+    footer{max-width:1200px;margin:2rem auto;padding:1rem;color:var(--muted)}
+    /* Grids and cards */
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+    /* Show full image without cropping */
+    /* Ensure all eBook covers have the same size (uniform aspect ratio) */
+    .thumb{
+      width: 100%;
+      aspect-ratio: 240/345;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .pad{padding:1rem}
+    .title{font-size:1.05rem;margin:.2rem 0 .4rem 0}
+    .meta{font-size:.9rem;color:var(--muted);margin:0}
+    .cta{margin-top:auto;display:flex;gap:.5rem;padding:1rem}
+    .btn{flex:1;text-align:center;border:1px solid var(--border);border-radius:.6rem;padding:.55rem .8rem;text-decoration:none}
+    .btn:hover{border-color:var(--accent)}
+    .section-head{display:flex;align-items:baseline;gap:.75rem}
+    .section-head h3{margin:.2rem 0}
+    .section-head small{color:var(--muted)}
+    /* Featured */
+    .featured{display:grid;grid-template-columns:320px 1fr;gap:1.5rem;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;margin-bottom:2rem}
+    .featured img{width:100%;height:auto;border-radius:8px}
+    @media (max-width:820px){.featured{grid-template-columns:1fr}}
+
+    /* Video embed styling for software section */
+    .video-embed {
+      margin-top: 1rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .video-embed iframe {
+      display: block;
+      width: 100%;
+      height: 500px;
+      border: 0;
+    }
   </style>
-  <script async src="https://www.googletagmanager.com/gtag/js?id="></script>
-  <script src="/assets/js/config.js"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){ dataLayer.push(arguments); }
-    gtag('js', new Date());
-    if (window.APP_CONFIG && window.APP_CONFIG.ga) { gtag('config', window.APP_CONFIG.ga); }
-    function track(name, params){ try{ gtag('event', name, params || {}); }catch(e){} }
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "iD01t Store",
+    "url": "https://id01tstore.github.io/",
+    "logo": "https://id01tstore.github.io/logo.png",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "email": "admin@id01t.store",
+      "contactType": "Customer Service"
+    }
+  }
   </script>
 </head>
-<body class="bg-base-900 text-neutral-100 selection:bg-fuchsia-500/30 selection:text-white">
-  <header class="sticky top-0 z-50 bg-base-900/80 glass border-b border-white/10">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="flex h-16 items-center justify-between">
-        <a href="/index.html#top" class="flex items-center gap-3 ring-focus" onclick="track('nav_home')">
-          <svg aria-hidden="true" viewBox="0 0 48 48" class="w-9 h-9 rounded-xl shadow-glow">
-  <defs>
-    <linearGradient id="g" x1="0" x2="1">
-      <stop offset="0" stop-color="#6366f1"/>
-      <stop offset="1" stop-color="#ec4899"/>
-    </linearGradient>
-  </defs>
-  <rect x="0" y="0" width="48" height="48" rx="12" fill="url(#g)"/>
-  <text x="24" y="30" text-anchor="middle" font-size="20" fill="white" font-weight="800">i</text>
-</svg>
-          <span class="text-lg font-extrabold tracking-tight">iD01t Store</span>
-        </a>
-        <nav class="hidden md:flex items-center gap-6 text-sm">
-          <a href="/index.html#store" class="hover:text-indigo-300 ring-focus">Shop</a>
-          <a href="/categories/apps.html" class="hover:text-indigo-300 ring-focus">Apps</a>
-          <a href="/index.html#about" class="hover:text-indigo-300 ring-focus">About</a>
-          <a href="/index.html#contact" class="hover:text-indigo-300 ring-focus">Contact</a>
-          <a href="/ebooks/index.html" class="hover:text-indigo-300 ring-focus">eBooks</a>
-        </nav>
-        <div class="md:hidden">
-          <details class="cursor-pointer">
-            <summary class="text-sm">Menu</summary>
-            <nav class="mt-2 flex flex-col gap-2 text-sm">
-              <a href="/index.html#store" class="hover:text-indigo-300">Shop</a>
-              <a href="/categories/apps.html" class="hover:text-indigo-300">Apps</a>
-              <a href="/index.html#about" class="hover:text-indigo-300">About</a>
-              <a href="/index.html#contact" class="hover:text-indigo-300">Contact</a>
-              <a href="/ebooks/index.html" class="hover:text-indigo-300">eBooks</a>
-            </nav>
-          </details>
-        </div>
-      </div>
+<body>
+  <!-- Top Bar -->
+  <header class="topbar" role="banner">
+    <div class="topbar-inner">
+      <a class="brand" href="./" aria-label="iD01t Store, home">
+        <img src="logo.png" alt="" onerror="this.style.display='none'">
+        <span>iD01t Store</span>
+      </a>
+
+      <nav class="nav" role="navigation" aria-label="Primary">
+        <a href="./" aria-current="page">Home</a>
+        <a href="https://id01t.github.io/catalog.html">eBooks</a>
+        <a href="#music">Music</a>
+        <a href="#software">Software</a>
+        <a href="contact.html">Contact</a>
+        <a href="support.html">Support</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="login.html">Login</a>
+      </nav>
     </div>
   </header>
-<main>
 
-<section class="relative overflow-hidden hero-gradient">
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 pb-20">
-    <div class="grid md:grid-cols-2 gap-12 items-center">
+  <main>
+    <h2>Welcome to the iD01t Store <span class="pill">Live</span></h2>
+    <p>Discover fresh releases, music, and software by Guillaume Lessard and iD01t Productions.</p>
+
+    <!-- Featured -->
+    <section id="featured" class="featured" aria-label="Featured">
+      <img id="featuredImg" src="" alt="Featured cover">
       <div>
-        <h1 class="text-4xl sm:text-6xl font-black leading-tight">The official iD01t Store</h1>
-        <p class="mt-5 text-neutral-300 text-lg">Browse ebooks, software, music, audiobooks, and creator tools on one fast store. Instant delivery, secure checkout, free updates on select products.</p>
-        <div class="mt-8 flex flex-wrap gap-3">
-          <a href="#store" class="inline-flex items-center rounded-xl bg-indigo-600 px-5 py-3 font-semibold shadow-lg shadow-indigo-600/30 hover:bg-indigo-500 ring-focus animate">Visit Store</a>
-          <a href="/categories/apps.html" class="inline-flex items-center rounded-xl bg-white/5 px-5 py-3 font-semibold hover:bg-white/10 ring-focus animate">Explore Apps</a>
-          <a href="/ebooks/index.html" class="inline-flex items-center rounded-xl bg-white/5 px-5 py-3 font-semibold hover:bg-white/10 ring-focus animate">Browse eBooks</a>
+        <h3 id="featuredTitle"></h3>
+        <p class="meta" id="featuredMeta"></p>
+        <p id="featuredDesc"></p>
+        <div class="cta">
+          <a id="featuredPrimary" class="btn" href="#" target="_blank" rel="noopener">View</a>
+          <a id="featuredSecondary" class="btn" href="#" target="_blank" rel="noopener">Details</a>
         </div>
       </div>
-      <figure class="relative aspect-[4/3] w-full rounded-3xl bg-gradient-to-tr from-neutral-800 to-neutral-900 border border-white/10 p-1">
-        <img src="/assets/img/hero.jpg" width="960" height="720" loading="lazy" alt="Store preview mosaic" class="h-full w-full rounded-2xl object-cover" />
-      </figure>
+    </section>
+
+    <!-- New Releases -->
+    <div class="section-head" id="ebooks"><h3>New Releases</h3><small>Hot off the press</small></div>
+    <section id="new-releases-grid" class="grid" aria-label="New Releases"></section>
+
+    <hr>
+
+    <!-- Best Sellers -->
+    <div class="section-head"><h3>Best Sellers</h3><small>Community favorites</small></div>
+    <section id="best-sellers-grid" class="grid" aria-label="Best Sellers"></section>
+
+    <hr>
+
+    <!-- Music -->
+    <div id="music" class="section-head"><h3>Music</h3><small>Official albums and videos</small></div>
+    <section id="music-grid" class="grid" aria-label="Music"></section>
+
+    <hr>
+
+    <!-- Software -->
+    <div id="software" class="section-head"><h3>Software</h3><small>Apps and tools</small></div>
+    <section id="software-grid" class="grid" aria-label="Software"></section>
+    <!-- Embedded app video for the Software section -->
+    <div class="video-embed">
+      <iframe src="https://www.youtube.com/embed/GsVqmOx4Rwc" allowfullscreen></iframe>
     </div>
-  </div>
-</section>
+  </main>
 
-<section id="apps" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-14 pb-6">
-  <div class="flex items-end justify-between gap-6 flex-wrap">
-    <h2 class="text-2xl sm:text-3xl font-extrabold">Apps</h2>
-    <a href="#store" class="text-sm text-indigo-300 hover:text-indigo-200">See all in Shop</a>
-  </div>
-  <div class="mt-6 grid md:grid-cols-3 gap-6">
-    <article class="rounded-2xl border border-white/10 bg-base-800 p-6 hover:border-indigo-500/60 transition animate">
-      <div class="text-xl font-bold">Py2Win</div>
-      <p class="mt-2 text-sm text-neutral-300">Package Python projects for Windows, ship .exe, update channels, versioning, speed to revenue.</p>
-      <div class="mt-4 flex gap-2">
-        <a href="/apps/py2win.html" class="inline-flex items-center rounded-xl bg-white/10 px-4 py-2 text-sm hover:bg-white/15 ring-focus">Learn more</a>
-        <button class="inline-flex items-center rounded-xl bg-indigo-600 px-4 py-2 text-sm hover:bg-indigo-500 ring-focus" onclick="openApp('py2win')">Open app</button>
-      </div>
-    </article>
-    <article class="rounded-2xl border border-white/10 bg-base-800 p-6 hover:border-indigo-500/60 transition animate">
-      <div class="text-xl font-bold">ForgeXPro</div>
-      <p class="mt-2 text-sm text-neutral-300">Studio for text, image, video, music, code, and social, clean exports, team ready.</p>
-      <div class="mt-4 flex gap-2">
-        <a href="/apps/forgexpro.html" class="inline-flex items-center rounded-xl bg-white/10 px-4 py-2 text-sm hover:bg-white/15 ring-focus">Learn more</a>
-        <button class="inline-flex items-center rounded-xl bg-indigo-600 px-4 py-2 text-sm hover:bg-indigo-500 ring-focus" onclick="openApp('forgexpro')">Open app</button>
-      </div>
-    </article>
-    <article class="rounded-2xl border border-white/10 bg-base-800 p-6 hover:border-indigo-500/60 transition animate">
-      <div class="text-xl font-bold">MusicForge</div>
-      <p class="mt-2 text-sm text-neutral-300">Produce music, manage stems, plan releases, prep credits, share previews.</p>
-      <div class="mt-4 flex gap-2">
-        <a href="/apps/musicforge.html" class="inline-flex items-center rounded-xl bg-white/10 px-4 py-2 text-sm hover:bg-white/15 ring-focus">Learn more</a>
-        <button class="inline-flex items-center rounded-xl bg-indigo-600 px-4 py-2 text-sm hover:bg-indigo-500 ring-focus" onclick="openApp('musicforge')">Open app</button>
-      </div>
-    </article>
-  </div>
-</section>
-
-<section id="store" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-14 pb-24">
-  <h2 class="text-2xl sm:text-3xl font-extrabold mb-6">Shop</h2>
-  <div class="rounded-2xl border border-white/10 bg-base-800 p-6">
-    <iframe src="https://ko-fi.com/id01t/shop" style="width:100%; min-height:900px; border:0;" title="Ko-fi Store" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-  </div>
-</section>
-
-<section id="about" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-14">
-  <div class="grid md:grid-cols-2 gap-10 items-center">
-    <div>
-      <h2 class="text-2xl sm:text-3xl font-extrabold">About iD01t Productions</h2>
-      <p class="mt-3 text-neutral-300">We create tools for independent creators and developers, ebooks, apps, music, all designed to help you move fast. Clean UX, clear docs, direct support.</p>
-    </div>
-    <figure class="rounded-3xl border border-white/10 min-h-64 overflow-hidden">
-      <img src="/assets/img/about.jpg" alt="Studio preview" width="960" height="640" loading="lazy" class="w-full h-full object-cover" />
-    </figure>
-  </div>
-</section>
-
-<section id="contact" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-14 pb-24">
-  <div class="rounded-3xl border border-white/10 p-8 bg-base-800">
-    <h3 class="text-xl font-extrabold mb-2">Stay connected</h3>
-    <p class="text-sm text-neutral-300">For updates, new releases, and direct support, follow us on Ko‑fi.</p>
-    <a href="https://ko-fi.com/id01t" class="mt-4 inline-block rounded-xl bg-indigo-600 px-5 py-3 font-semibold hover:bg-indigo-500 ring-focus">Follow on Ko‑fi</a>
-  </div>
-</section>
-
-</main>
-  <footer class="border-t border-white/10 py-8 text-center text-xs text-neutral-400">
-    <p>© <span id="year"></span> iD01t Productions, all rights reserved</p>
+  <footer>
+    <small>&copy; <span id="y"></span> iD01t Productions, all rights reserved.</small>
   </footer>
+
+  <!-- Inline JS -->
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', e => {
-        const id = a.getAttribute('href').slice(1);
-        const el = document.getElementById(id);
-        if (el) { e.preventDefault(); el.scrollIntoView({behavior: 'smooth', block: 'start'}); }
+    // Config for GitHub API
+    const GH_OWNER = "iD01t";
+    const GH_REPO  = "iD01t.github.io";
+    const BRANCH   = "main";
+
+
+    // Data for products
+    const DATA = {
+      featured: {
+        // Use the high-resolution cover hosted on Google Play for "Before the storm"
+        img: "https://play.google.com/books/publisher/content/images/frontcover/0Yo2EQAAQBAJ?fife=w240-h345",
+        title: "Before the storm",
+        meta: "eBook",
+        desc: "Investigative journalist Olivia Grant uncovers a high-stakes conspiracy tied to corporate corruption and environmental destruction, leading to forbidden romance and a fight for truth.",
+        primary: { href: "product.html?id=0Yo2EQAAQBAJ", label: "View" },
+        secondary: { href: "https://play.google.com/store/books/details?id=0Yo2EQAAQBAJ", label: "Google Books" }
+      },
+      newReleases: [
+        {
+          img: "https://books.google.com/books/publisher/content?id=-FA5EQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE73J5_nD-ikf4nEqOMWjAHQuiHNGB541pNr2SF5xiGrA4dqK-Lww9tpRYNr0HqzpKrzK-NVlRree1QWVhqqb3ukgrEFW4hKw_7fwl-31l_Hun8ybG4fxCQ-E687hrEof09c0I38Z&source=gbs_api",
+          title: "To the Top of the Mountain",
+          meta: "eBook",
+          desc: "A journey of health, wellness, and adventure as climbers push their limits while exploring the intersection of nature and personal growth.",
+          // Updated product link to the negative ID version for this volume; use absolute URL for consistency
+          links: [{href:"https://id01t.github.io/product.html?id=-FA5EQAAQBAJ",label:"View"}]
+        },
+        {
+          // Corrected ID for The Architect's Legacy (both image and product link)
+          img: "https://books.google.com/books/publisher/content?id=H_A4EQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE70svCRnQMM47Na4xLQk8-JW19PcARyutpnB1Haac3WK-Td5p8f6fnpLL7DK0CJlFOePMXwS8PGms4AcwED6H6LMK_wzKVB3KuRYjssT82G8KAqpP76aWjBYgqn2XdBCO98HkrzX&source=gbs_api",
+          title: "The Architect's Legacy",
+          meta: "eBook",
+          desc: "A struggle for freedom in a dystopian world where architects fight against oppression and hidden agendas to reclaim their future.",
+          // Use absolute URL for product link to ensure the page opens correctly on GitHub Pages
+          links: [{href:"https://id01t.github.io/product.html?id=H_A4EQAAQBAJ",label:"View"}]
+        },
+        {
+          // Corrected ID for Windows Zero to Hero (both image and product link)
+          img: "https://books.google.com/books/publisher/content?id=Rvk5EQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE70EYeAS7Ciip0PLtoq3przrtzTyvlSgj9j4mFoI1p9yEc8UseSBvEfwGHkcNYaETUwJJcIcErHRo7xcYZ2Nds2xvtW475xNH2YoEBjxx1EuL8Ms5hp0MCO8i9wa58bVJWtgnQ6s&source=gbs_api",
+          title: "Windows Zero to Hero",
+          meta: "eBook",
+          desc: "Master Windows and transition from novice to expert with this comprehensive, step-by-step guide.",
+          // Use absolute URL for product link to ensure the page opens correctly on GitHub Pages
+          links: [{href:"https://id01t.github.io/product.html?id=Rvk5EQAAQBAJ",label:"View"}]
+        },
+        {
+          img: "https://books.google.com/books/publisher/content?id=kY09EQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE71VNWZbGpI_n7Dx4Fd1VTbOPIExjh5YkgEcLLX24D_JYOrmMkWsNWDYZ_MJDilDZzoI7i2eojNaI_mp8uc77XMH5xx1ES29ihq1AWyiQLl0wsCDMuALqd_9wJHRAc0On7ta7hwY&source=gbs_api",
+          title: "AI Today: Transforming Lives and Industries for the Future",
+          meta: "eBook",
+          desc: "Explore how artificial intelligence reshapes healthcare, education, business, and society, unlocking new possibilities.",
+          // Use absolute URL for product page (corrected ID)
+          links: [{href:"https://id01t.github.io/product.html?id=kY09EQAAQBAJ",label:"View"}]
+        }
+      ],
+      bestSellers: [
+        {
+          img: "https://books.google.com/books/publisher/content?id=Kwo4EQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE73FsLeKHz03wQoRzSnQhrp9rC3LgqCO_37ZETmWfxeDRsXlnJ9aj1hg8NMlE0VOyaQiiGJdVKDbVJRLUEvXHNiaRbg-OXtO-0F1NSAJPLGUc_rjfnRHxARwl4xlTHCdh5F2Ihfa&source=gbs_api",
+          title: "Echoes of the Heart",
+          meta: "eBook",
+          desc: "Investigative journalist Olivia Bennett faces a dangerous investigation while falling for enigmatic attorney Jack Hawthorne in this romantic thriller.",
+          // Use absolute URL for product page (corrected ID)
+          links: [{href:"https://id01t.github.io/product.html?id=Kwo4EQAAQBAJ",label:"View"}]
+        },
+        {
+          img: "https://books.google.com/books/publisher/content?id=QQo4EQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE737L2sXNbD4UssbKSgr6TJcUZU4sH5IVTlpf4v5pHRQw_G3umrq9T3g5itcVL5ffaf-4nOKN8Qwfq22Q3F3VBYC0UjkrnhpL_9rBsGIIVHPxdrbE8HYYamTg-Mgfx6agjStJOHq&source=gbs_api",
+          title: "Echoes of Truth",
+          meta: "eBook",
+          desc: "Claire Mitchell uncovers a dangerous web of lies linking her husband to powerful figures, embarking on a journey of mystery, betrayal, and redemption.",
+          // Use absolute URL for product page (corrected ID)
+          links: [{href:"https://id01t.github.io/product.html?id=QQo4EQAAQBAJ",label:"View"}]
+        },
+        {
+          img: "https://books.google.com/books/publisher/content?id=Iwo4EQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE71wSzwMLTjtVbd0p95DmZzqQf3tal2BH0kvzZ110s-NpCI_X6fRnvcMa6baQLuyT2neu8YZyh3DKgztjCQAszVgoASdv0ojg94rAkJmMilCh6OiqjGyagtB07Ms7C_yFCfTP7uF&source=gbs_api",
+          title: "Intersection: The Moment Their Paths Crossed",
+          meta: "eBook",
+          desc: "Investigative journalist Olivia Bennett and attorney Jack Hawthorne find their lives intersected by a dangerous conspiracy in this thriller about courage, love, and sacrifice.",
+          // Use absolute URL for product page (corrected ID)
+          links: [{href:"https://id01t.github.io/product.html?id=Iwo4EQAAQBAJ",label:"View"}]
+        },
+        {
+          img: "https://books.google.com/books/publisher/content?id=OQo4EQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE708WN4gfb6JCbcBkslBZ3Ybkb8WcuWgsT5Q31E5LN39BRB--WXSYkOK78W45K0lSd6c14VyAy21BLmG7AKms-75pN-RR3zj0C3YTvaumeJ5RfMbOBJPHL3Yr0JVNAPgumCbX3TE&source=gbs_api",
+          title: "Legacy of Shadows",
+          meta: "eBook",
+          desc: "Olivia Bennett and Jack Hawthorne confront deception and global conspiracies as their love is tested by betrayal and sinister forces.",
+          // Use absolute URL for product page (corrected ID)
+          links: [{href:"https://id01t.github.io/product.html?id=OQo4EQAAQBAJ",label:"View"}]
+        }
+      ],
+      music: [
+        {
+          img: "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/e7/c3/9e/e7c39e94-e3c7-35c8-890f-403667e3bf6b/artwork.jpg/316x316bb.webp",
+          title: "Final Transmission",
+          meta: "Album, 13 tracks",
+          desc: "Thirteen tracks of cinematic electronica, official music video series included.",
+          // Updated streaming links for Final Transmission: Spotify and YouTube
+          links: [
+            {href:"https://open.spotify.com/album/7acmUMIp3LjMq8geiNJVkc",label:"Listen"},
+            {href:"https://youtu.be/EWeQqnDHKTg?si=NxfCZ9XcAJZmC_0D&t=289",label:"Watch"}
+          ]
+        },
+        {
+          img: "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/db/1d/6d/db1d6de7-2917-7046-da8f-2bce962f9ca9/artwork.jpg/316x316bf.webp",
+          title: "No Master Needed",
+          meta: "Album",
+          desc: "Industrial, techno, and story-driven soundscapes.",
+          links: [{href:"https://youtube.com/playlist?list=placeholder",label:"Watch"}]
+        }
+      ],
+      software: [
+        {
+          // Updated logo for Py2Win from its GitHub repository
+          img: "https://raw.githubusercontent.com/iD01t/Py2Win/c6922c396bc5ba387083159e02d4b9d6340e6db6/Py2Win.png",
+          title: "Py2Win",
+          meta: "Windows Packaging",
+          desc: "Turn Python apps into polished Windows installers, documented for Microsoft Store.",
+          links: [
+            {href:"https://github.com/iD01tStore/Py2win/releases",label:"Releases"},
+            {href:"https://github.com/iD01tStore/Py2win",label:"GitHub"}
+          ]
+        }
+      ]
+    };
+
+    // Helper: create elements
+    function el(tag, attrs={}, children=[]){
+      const e = document.createElement(tag);
+      Object.entries(attrs).forEach(([k,v]) => {
+        if(k === "class") e.className = v;
+        else if(k.startsWith("on") && typeof v === "function") e.addEventListener(k.slice(2), v);
+        else if(k === "html") e.innerHTML = v;
+        else e.setAttribute(k,v);
       });
-    });
+      children.forEach(c => e.appendChild(typeof c === "string" ? document.createTextNode(c) : c));
+      return e;
+    }
+
+    // Card builder
+    function card(item){
+      const img = el("img", {class:"thumb", src:item.img, alt:item.title, loading:"lazy"});
+      const title = el("div", {class:"title"}, [item.title]);
+      const meta = el("p", {class:"meta"}, [item.meta]);
+      const desc = el("p", {}, [item.desc]);
+      const cta = el("div", {class:"cta"}, (item.links||[]).map(l => el("a",{class:"btn",href:l.href,target:"_blank"},[l.label])));
+      return el("article", {class:"card"}, [img, el("div",{class:"pad"},[title, meta, desc]), cta]);
+    }
+
+    // Render grid
+    function renderGrid(id, items){
+      const root = document.getElementById(id);
+      root.innerHTML = "";
+      items.forEach(it => root.appendChild(card(it)));
+    }
+
+    // Render featured
+    function renderFeatured(f){
+      const img = document.getElementById("featuredImg");
+      const title = document.getElementById("featuredTitle");
+      const meta = document.getElementById("featuredMeta");
+      const desc = document.getElementById("featuredDesc");
+      const primary = document.getElementById("featuredPrimary");
+      const secondary = document.getElementById("featuredSecondary");
+      img.src = f.img;
+      title.textContent = f.title;
+      meta.textContent = f.meta;
+      desc.textContent = f.desc;
+      primary.href = f.primary.href;
+      primary.textContent = f.primary.label;
+      secondary.href = f.secondary.href;
+      secondary.textContent = f.secondary.label;
+    }
+
+    // Init
+    function init(){
+      renderFeatured(DATA.featured);
+      renderGrid("new-releases-grid", DATA.newReleases);
+      renderGrid("best-sellers-grid", DATA.bestSellers);
+      renderGrid("music-grid", DATA.music);
+      renderGrid("software-grid", DATA.software);
+      document.getElementById("y").textContent = new Date().getFullYear();
+    }
+    document.addEventListener("DOMContentLoaded", init);
   </script>
-<script src="/assets/js/app-login.js"></script>
 </body>
 </html>
